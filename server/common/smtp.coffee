@@ -1,5 +1,5 @@
 Meteor.startup ->
-  process.env.MAIL_URL = 'smtp://postmaster%40sandbox2b34aad36d5a4a658b8414b518699cbc.mailgun.org:83659187393d7697aa339c60626fd03e@smtp.mailgun.org:587'
+  process.env.MAIL_URL = 'smtp://postmaster%40suitelife.tk:58a6f91c47d7b82c5a9db38b63c69e70@smtp.mailgun.org:587'
   return
 
 

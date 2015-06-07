@@ -1,16 +1,16 @@
 <!-- Generated on 2015-04-20 by meteor-stock. Edit me! -->
 <template name="postsList">
-	<div class="panel panel-default">
+	<div class="panel panel-default" id="postsPanel">
 
 		<div class="panel-heading">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="">
 					<h3 class="panel-title">
 						<i class="fa fa-pencil-square-o"></i> Posts
 					</h3>
 				</div>
-				<div class="col-md-6 text-right">
-					{{> tooltips title="Posts" content="Share comments and photographs with your Suitemates." }}
+				<div class="pull-right">
+					{{> tooltips title="Posts" content="Post notes for all your suitemates to see. This is a great place to post about house rules, reminders or upcoming opportunities."}}
 					{{> newPost}}
 				</div>
 			</div>
@@ -20,7 +20,7 @@
 			Need to change so 'each post' generates a list-group-item,
 			see iou_list for an example. This is just a placeholder.
 		-->
-		<div class="panel-body" id="postsList">
+		<div class="panel-body" id="postsList" >
 			<div class="postsPackery">
 				{{#each posts}}
 				<div class="post-item">
@@ -38,35 +38,16 @@
   	<i class="fa fa-times"></i>
   </button>
 	<span class="editable-text">	
-		{{> editableText collection="posts" field="message" placeholder="Post message" removeEmpty=true wysiwyg=true beforeUpdate="whoDunnitPosts" substitute='<i class="fa fa-pencil"></i>'}}
+		{{> editableText collection="posts" field="message" placeholder="Post message" removeEmpty=true wysiwyg=true beforeUpdate="whoDunnitPosts" onStartEditing="postsPackery" onStopEditing="postsPackery" substitute='<i class="fa fa-pencil"></i>'}}
 	</span>
 	<div class="last-edited"> 
-	last edited at {{lastEdited}} by {{getEmail authorId}} 
-	</div>
-	<!--{{#if imagePath.url}}
-		<img class="bulletin-image" src={{imagePath.url}}>
-	{{#else}}
-		{{> uploader}}	 #TODO: conditional on editing text
-	{{/if}}
-	-->
-</template>
-
-<template name="uploader">
-	<div class="row">
-		<div class="col-md-8">	{{> upload_bootstrap fileTypes='.jpg'
-		multiple=false callbacks=myCallbacks}}
-		</div>
-		{{#if imagePath.url}}
-			<div class="col-md-4">
-					<span class="btn btn-warning clear" post="{{_id}}">Remove Image</span>
-			</div>
-		{{/if}}
+	last edited at {{lastEdited}} by {{getName lastEditor}}
 	</div>
 </template>
 
 <template name="newPost">
 
-	<span class="btn btn-md btn-primary my-btn editable-text-trigger new">
+	<span class="btn btn-md btn-primary costsplit-btn editable-text-trigger new">
 		<i class="fa fa-plus"></i> New 
 	</span>
 

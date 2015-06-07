@@ -4,22 +4,22 @@
     <div class="panel-heading">
 
       <div class="row">
-        <div class="col-md-3">
+        <div class="">
           <h3 class="panel-title">
             <i class="fa fa-usd"></i> IOUs
           </h3>
         </div>
         
-        <div class="col-md-9">
+        <div class="pull-right">
           <div class="text-right">
-            {{> tooltips title="IOUs" content="Keep track of money owed to your Suitemates with IOUs." }}
-            <button class="btn btn-md btn-info log" data-toggle="modal" data-target="#iouLogModal">
+            {{> tooltips title="IOUs" content="With the cost splitter you can easily split shared expenses. How you pay is up to you." }}
+            <button class="btn btn-md btn-info log my-btn" data-toggle="modal" data-target="#iouLogModal">
               <i class="fa fa-list-alt"></i> Log
             </button>
-            <button class="btn btn-md btn-warning cost-splitter" data-toggle="modal" data-target="#costSplitterModal">
+            <button class="btn btn-md my-btn cost-splitter" data-toggle="modal" data-target="#costSplitterModal">
               <i class="fa fa-money"></i> Cost Splitter
             </button>
-            <button class="btn btn-md btn-primary my-btn new" data-toggle="modal" data-target="#newIouModal">
+            <button class="btn btn-md btn-primary new costsplit-btn" data-toggle="modal" data-target="#newIouModal">
               <i class="fa fa-plus"></i> New
             </button>
           </div>
@@ -28,19 +28,19 @@
       </div>
 
     </div>
-
-    <ul class="list-group panel-body" id="iousList">
-      {{#if ious.count}}
-        {{#each ious}}
-          {{> iouItem}}
-        {{/each}}
-      {{else}}
-        <li class="list-group-item empty-note text-center disabled">
-          No IOUs
-        </li>
-      {{/if}}
-    </ul>
-
+    <div class="panel-body" id="iousList">
+      <ul class="list-group" id="">
+        {{#if ious.count}}
+          {{#each ious}}
+              {{> iouItem}}
+          {{/each}}
+        {{else}}
+          <li class="list-group-item empty-note text-center disabled">
+            No IOUs
+          </li>
+        {{/if}}
+      </ul>
+    </div>
   </div>
 
   <div class="modal fade" id="newIouModal" tabindex="-1" role="dialog" aria-labelledby="New IOU" aria-hidden="true">
@@ -76,6 +76,7 @@
   </div>
 
   <div class="modal fade" id="costSplitterModal" tabindex="-1" role="dialog" aria-labelledby="Cost Splitter" aria-hidden="true">
+    {{> sAlert}}
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -95,17 +96,45 @@
 
 <template name="iouItem">
 
-  <li class="list-group-item {{paidColor paid}}">
+  <li class="list-group-item {{paidColor paid}} oneChore">
 
-    <div class="container-fluid">
       <div class="row">
+        <div class="col-md-1">
+          <style scoped>
+            {{> completedCss}}
+          </style>
+          {{#if paid}}
+            <input type="checkbox" name="completedCheck" id="completedCheck-{{_id}}" checked />
+          {{else}}
+            <input type="checkbox" name="completedCheck" id="completedCheck-{{_id}}"/>
+          {{/if}}
+          <label class="paid completedLabel-{{_id}}" for="completedCheck-{{_id}}"></label>
+        </div>
+
         <div class="col-md-3 date">
-            {{dateFormat date}}
+            <span class="{{textColor paid}}">{{dateFormat date paid}}</span>
         </div>
-        <div class="col-md-8 reason">
-          {{> editableText collection="ious" field="reason" }}
+
+        <div class="col-md-6 iou-info">
+          <span class="underline-editable">
+            {{> editableText collection="ious" field="reason" beforeUpdate="validateIOUReason" }}
+          </span>
+
+          <br>
+
+          {{{amountFormat amount payerId payeeId}}} 
+          <span class="underline-editable editable-text-trigger">
+            ${{> editableText collection="ious" field="amount" beforeUpdate="validateIOUAmount" }}
+          </span>
         </div>
+
+        <div class="col-md-2 iou-list-buttons" align="right">
+          <button class="btn btn-xs btn-danger listDeleteBtn" data-toggle="modal" data-target="#delete{{ _id }}Modal">
+            <i class="fa fa-times"></i>
+          </button>
       </div>
+      </div>
+      <!--
       <div class="row">
         <div class="col-md-8 col-md-offset-3">
           {{{amountFormat amount payerId payeeId}}} 
@@ -114,17 +143,8 @@
           </span>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12 text-right">
-          <button class="btn btn-md btn-success paid">
-            <i class="fa fa-check"></i>
-          </button>
-          <button class="btn btn-md btn-danger" data-toggle="modal" data-target="#delete{{ _id }}Modal">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+      -->
+      
 
   </li>
 
@@ -152,32 +172,4 @@
 
 </template>
 
-<template name="iouLog">
 
-  <div class="container-fluid">
-
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Log Message</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#if logMessages}}
-          {{#each logMessages}}
-            <tr>
-            <td>{{this.date}}</td><td>{{this.message}}</td>
-            </tr>
-          {{/each}}
-        {{else}}
-          <li class="list-group-item empty-note text-center disabled">
-            No IOU log messages.
-          </li>
-        {{/if}}
-      </tbody>
-    </table>
-
-  </div>
-
-</template>

@@ -15,13 +15,13 @@
       		<label class="row control-label" for="choreName">Chore Name</label>  
       		<div class="row">
 						<div class="col-md-10">
-        			<input id="choreName" name="choreName" type="text" placeholder="Name Your Chore" class="form-control input-md" required="">
+        			<input id="choreName" name="choreName" type="text" placeholder="Name Your Chore" class="form-control input-md" required="" maxlength="60">
       			</div>
       		</div>
     		</div>
 
     		<div class="form-group" align="left">
-      		<label class="row control-label" for="freqNum">Repeat this chore:</label>
+      		<label class="row control-label" for="repeat-freqs">Repeat this chore:</label>
       		<div class="row">
       			<div class="col-md-10">    		
         			<select id="repeat-freqs" name="repeat-freqs" class="form-control">
@@ -39,7 +39,7 @@
       		<div class="row">
       			<div class="col-md-10">
         			<div class="input-group">
-          			<input id="freqNum" name="freqNum" class="form-control" placeholder="1" onfocus="this.placeholder = ''" onblur="this.placeholder = '1'" type="text" disabled required>
+          			<input id="freqNum" name="freqNum" class="form-control" value="1" type="text" disabled required>
           			<span class="input-group-addon">times</span>
         			</div>
       			</div>
@@ -48,14 +48,14 @@
       
       <!-- List for assign -->
     		<div class="form-group" align="left">
-      		<label class="row control-label" for="assignee">Assign to roommate:</label>
+          <label class="row control-label" for="assignee">Assign to suitemate:</label>
       			<div class="row">
       				<div class="col-md-10">
-        				<select id="assignee" name="assignee" class="form-control">
-          				{{#each users}}
-              			<option value="{{this}}">{{getUserName this}}</option>
-          				{{/each}}
-        				</select>
+             		<select class="selectpicker" id="assignee" name="assignee[]" multiple title="Pick one or more suitemates" data-selected-text-format="count>2">
+							      {{#each users}}
+              				<option value="{{this}}">{{getUserName this}}</option>
+          					{{/each}}
+							  </select>
         			</div>
         		</div>
       	</div>
@@ -65,7 +65,7 @@
     <div class="form-group">
       <label class="control-label" for="choreDesc">Comments (optional)</label>
       <div class="controls col-md-12">                     
-        <textarea id="choreDesc" name="choreDesc" placeholder="Add comments here" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add comments here'"  maxlength="500" rows="4"></textarea>
+        <textarea id="newChoreDesc" name="choreDesc" placeholder="Add comments here" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add comments here'"  maxlength="140" rows="4"></textarea>
       </div>
     </div>
     

@@ -1,8 +1,29 @@
-.signup .container{
-	margin-bottom: 20px;
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
+
+body {
+    font-family: 'Open Sans', sans-serif;
+   /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; */
+   font-weight: 300;
 }
 
+.signup .container{
+	margin-bottom: 20px;
+	background-color: #f6fbfc;
+}
 
+.mission{
+	background-color: #f6fbfc;
+}
+
+.video {
+	margin-bottom: 30px;
+}
+
+.video h1 {
+	font-size: 30px;
+	text-align: center;
+	color: black;
+}
 .jumbotron {
   background-image:url('http://www.citrusinteria.com/wp-content/uploads/2015/04/living-room-mesmerizing-living-room-colors-captivating-living-room-interior-design-mesmerizing-blue-living-room.jpg');
   height: 700px;
@@ -18,7 +39,7 @@
 
 .jumbotron h1 {
 
-  color: #9987CA;
+  color: #83BDD3;
   text-align: center;
   font-size: 170px;  
   font-family: 'Shift', sans-serif;
@@ -29,6 +50,7 @@
 .jumbotron h2 {
 	text-align: center;
 	font-size: 50px;
+	text-shadow: 1px 1px 2px rgba(0,0,0, .7);
 }
 
 .jumbotron .wrapper {
@@ -58,7 +80,7 @@
 
 .features {
 	margin-bottom: 30px;
-	background-color: #9987CA;
+	background-color: #34819e;
 	color: white;
 	padding: 20px;
 }
@@ -72,11 +94,11 @@
 }
 
 .features .fa-calendar {
-	color: lightblue;
+	/*color: lightblue;*/
 }
 
 .features .fa-usd {
-	color: green;
+	/*color: green;*/
 }
 
 .features.fa-comment {

@@ -3,20 +3,41 @@ root.Ious = new (Meteor.Collection)('ious')
 # Note: this will allow ALL users to insert, update, and delete Ious
 Meteor.methods
   deleteIou: (id) ->
-    Ious.remove id
+    iou = Ious.findOne id
+    Ious.update id, $set: { deleted: true }
+    lastEdited = new Date( ).getTime( )
+    logMessage = Meteor.user( ).profile.first_name + " deleted IOU \"" + iou.reason + ".\""
+
+    Ious.update id, $push: { "editLog": { "lastEdited": lastEdited,
+    "logMessage": logMessage,
+    "editType": "delete" } }
   newIou: (iou) ->
     iou.createdAt = (new Date).getTime()
     id = Ious.insert(iou)
     id
   editIou: (iou, editedField) ->
-    lastEdited = new Date()
+    lastEdited = new Date( ).getTime( )
     ## If the amount was changed, build a log message to convey the changes
     if editedField.fieldName == "amount"
-      logMessage = Meteor.user( ).profile.first_name + ' changed IOU "' + iou.reason + '"\'s amount from ' +
-      iou.amount + ' to ' + editedField.newValue + ' on ' + lastEdited.toDateString() + '.'
+      logMessage = Meteor.user( ).profile.first_name + ' changed IOU "' + iou.reason + '"\'s amount from $' +
+      iou.amount + ' to $' + editedField.newValue + '.'
+    else if editedField.fieldName == "reason"
+      logMessage = Meteor.user( ).profile.first_name + ' changed IOU "' + iou.reason + '" to "' +
+      editedField.newValue + '."'
 
-    Ious.update iou._id, $set: { "lastEdited": lastEdited.getTime( ) }
-    Ious.update iou._id, $push: { "editLog": logMessage } 
+    Ious.update iou._id, $push: { "editLog": { "lastEdited": lastEdited,
+    "logMessage": logMessage,
+    "editType":   "update" } }
   payIou: (id) ->
-    Ious.update id, $set: {paid: true}
+    iou = Ious.findOne id
+    isPaid = iou.paid
+    if isPaid
+      Ious.update id, $set: {paid: false}
+    else
+      Ious.update id, $set: {paid: true}
+      lastEdited = new Date( ).getTime( )
+      logMessage = Meteor.user( ).profile.first_name + " paid IOU \"" + iou.reason + ".\""
+      Ious.update id, $push: { "editLog": { "lastEdited": lastEdited,
+      "logMessage": logMessage,
+      "editType": "payed" } }
     id

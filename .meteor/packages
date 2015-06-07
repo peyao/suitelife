@@ -8,8 +8,6 @@ babrahams:editable-text
 babrahams:editable-text-wysiwyg-bootstrap-3
 fortawesome:fontawesome
 twbs:bootstrap
-tomi:upload-server
-tomi:upload-jquery
 ian:accounts-ui-bootstrap-3
 email
 msavin:mongol
@@ -25,3 +23,8 @@ mrt:jquery-ui-bootstrap
 rcy:nouislider
 binary-heap
 jparker:crypto-md5
+juliancwirko:s-alert-scale
+mrt:bootstrap-select
+numeral:numeral
+oscarpan:jquery-ui-nowidgets
+mystor:device-detection

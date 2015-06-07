@@ -1,6 +1,48 @@
+.iou-log-table {
+  border-radius: 6px;
+  border: solid #9987CA 2px;
+  padding: 0;
+  background: lightgray;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+.fa-usd {
+  /*color: green;*/
+}
+
+.iou-log-tbody {
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 1.1em;
+}
+
+.iou-log-tbody .row {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  border-bottom: solid #9987CA 2px;
+}
+
+.iou-log-thead .row {
+  font-weight: bold;
+  font-size: 1.2em;
+  padding-bottom: .5em;
+  padding-top: .5em;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.iou-log-thead {
+  background-color: lavender;
+  border-bottom: solid #9987CA 2px;
+}
+
 .date {
   color: gray;
   font-weight: bold;
+  top: 5px;
 }
 
 .amountPayer {
@@ -18,18 +60,19 @@
 .empty-note {
   font-style: italic;
   color: gray;
+  background-color: rgba(238, 238, 238, 0.8) !important;
+  padding: 20px;
 }
 
-.money {
+.underline-editable {
   border-bottom-color: gray;
   border-bottom-width: 1px;
   border-bottom-style: dashed;
+  font-weight: 600;
 }
 
-.reason {
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
-  border-bottom-style: dashed;
+.underline-editable:hover {
+  background-color: lightgray;
 }
 
 .money input{
@@ -41,3 +84,22 @@
 }
 
 .modal-large { width: 800px; }
+
+#iousListDiv{
+  position: relative;
+}
+
+#iousList{
+  background-image: url('legalpad.jpg');
+  background-repeat: repeat;
+  background-attachment: local;
+  -ms-background-size: auto;
+  -o-background-size: auto;
+  -moz-background-size: auto;
+  -webkit-background-size: auto;
+  background-size: auto;
+}
+
+.iou-info{
+  padding: 4px 0px 12px 0px;
+}

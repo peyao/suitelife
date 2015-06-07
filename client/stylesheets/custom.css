@@ -1,30 +1,113 @@
-h3 { 
-  cursor: hand; 
-  cursor: pointer; 
+h3 {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.modal-body > .container {
+    width: inherit;
+}
+
+.popover {
+    min-width: 200px;
+}
+
+.navbar {
+    background-color: #34819e;
+}
+
+#login-dropdown-list > .dropdown-toggle {
+    background-color: #34819e;
+    color: white;
+}
+
+@font-face {
+    font-family: customTitleFont;
+    src: url(fonts/helve-cursive.ttf);
 }
 
 .navbar-brand{
-    padding: 4px 15px;
+    padding: 10px 15px 5px 15px;
+    height: 60px;
+}
+.navbar-brand img{
+    max-height: 40px;
+}
+
+.suite-name {
+    font-size:34px;
+    text-align:center;
+    margin-top: 12px;
+    font-family: customTitleFont;
+    color: #dff3fb;
+    text-align: center;
+    width: 100%;
+}
+
+.dropdown-toggle {
+    color: #FFFFFF;
+}
+
+.suite-name > .wide-text-edit {
+    font-size: 28px;
+    text-align: center;
+}
+
+.navbar-header {
+    margin-left:20px;
+}
+
+.menu-item{
+    color: #dff3fb !important;
+    font-size: 25px;
+    margin-top: 5px;
+    padding: 23px 10px 10px 10px !important;
+    font-weight: 400;
 }
 
 .my-btn{
-    background: #9987ca;
+    background-color: #0d9393;
     color: #ffffff;
 }
 
 .my-btn:hover{
-  border-color: #ffffff; 
-  background-color: #7a6ca1; 
-  color: #ffffff;
+    background-color: #0A7676;
+    color: #ffffff;
 }
 
+.costsplit-btn{
+    background-color: #F98914;
+    color: #ffffff;
+    border-color: #C76E10;
+    }
+
+.costsplit-btn:hover{
+    background-color: #E07B12;
+    color: #ffffff;
+    border-color: #C76E10;
+}
+
+.costsplit-btn:focus{
+    background-color: #E07B12;
+    color: #ffffff;
+    border-color: #C76E10;
+}
+
+.q-btn{
+    background-color: #5bc0de;
+    color: #ffffff;
+    }
+
+.q-btn:hover{
+    background-color: #b3dded;
+    }
+    
 .panel-default > .panel-heading {
-  color: #575757;
-  background-color: #94a6d3;
+    color: #575757;
+    background-color: #dff3fb;
 }
 
 .panel {
-	box-shadow: 0px 3px 3px rgba(0, 0, 0, .15);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, .15);
 }
 
 .settings-form label{
@@ -35,4 +118,26 @@ h3 {
 
 .img-circular{
     border-radius: 50%;
+}
+
+button.selectpicker{
+    color: black;
+}
+
+footer{
+    text-align: center;
+}
+
+footer p {
+    padding-top: 30px;
+    vertical-align: center;
+    margin-bottom: -5px !important;
+}
+
+footer p a {
+    color: #333;
+}
+
+footer p a:hover {
+    color: #0000FF;
 }

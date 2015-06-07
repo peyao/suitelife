@@ -1,99 +1,168 @@
 <!-- view chores in a list -->
-
 <template name="choresList">
-  <div class="panel panel-default">
+	{{> deleteChoreModal}}
+
+  <div class="panel panel-default" id="choresPanel">
     <div class="panel-heading">
       <div class="row">
-        <div class="col-md-6">
+        <div class="">
         	<h3 class="panel-title">
                 <i class="fa fa-list-alt"></i> Chores List
         	</h3>
         </div>
-        <div class="col-md-6 text-right">
-          {{> tooltips title="Chores" content="Split-up and schedule chores with your Suitemates." }}
+        <div class="pull-right">
+          {{> tooltips title="Chores" content="View everyone's chores. Edit chores and mark them as complete." }}
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary active choreBtns" id="todayChores">
+              <input type="radio" name="options" id="todayText" autocomplete="off" checked>Today <span class="badge">{{todayCount}}</span>
+            </label>
+            <label class="btn btn-primary choreBtns" id="upcomingChores">
+              <input type="radio" name="options" id="upcomingText" autocomplete="off">Upcoming <span class="badge">{{upcomingCount}}</span>
+            </label>
+            <label class="btn btn-primary choreBtns" id="allChores">
+              <input type="radio" name="options" id="allText" autocomplete="off">All  <span class="badge">{{allCount}}</span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="panel-body container-fluid" id="choresList">
-      <ul class="list-group">
-        {{#if chores.count}}
-          {{#each chores}}
-            {{> choreItem}}
+      <ul class="list-group choreLists">
+      	{{#if listData.count}}
+          {{#each listData}}
+            {{> Template.dynamic template=activeList}}
           {{/each}}
         {{else}}
-          <li class="list-group-item empty-note text-center disabled">
-            There are no chores! Add a chore by clicking a specific date or the New button on the calendar.
+          <li class="list-group-item empty-note text-center disabled oneChore">
+            No chores!
           </li>
-      {{/if}}
-      </ul>
-
-      <!--<table class="table table-striped" id="listTable">
-    		{{#if chores.count}}
-    		<thead>
-      		<tr>
-      			<th>Date</th>
-       			<th>Name</th>
-            <th>Description</th>
-        		<th>Assigned</th>
-            <th>Completed On</th>
-            <th></th>
-      		</tr>
-    		</thead>
-    		<tbody>
-          {{#each chores}}
-       			{{> choreItem}}
-      		{{/each}}
-      	</tbody>
-      	{{else}}
-      		<tr>
-      			<td class="empty-note text-center"> No Chores</td>
-      		</tr>
-      	{{/if}}
-    	</table>-->
+        {{/if}}
+    	</ul>
     </div>
   </div>
 </template>
 
+
 <!-- chore details in a row, each part in a different column -->
 <template name="choreItem">
-  <li class="list-group-item {{completeColor completed startDate}}">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12" id="dateHeader">
-          {{dateFormat startDate}}
-        </div>
+	<li class="list-group-item {{completeColor completed startDate}} oneChore">
+		
+    <div class="row">
+    	<div class="col-md-1">
+      	<style scoped>
+      		{{> completedCss}}
+      	</style>
+      	{{#if completed}}
+					<input type="checkbox" name="completedCheck" id="completedCheck-{{_id}}" checked />
+				{{else}}
+					<input type="checkbox" name="completedCheck" id="completedCheck-{{_id}}"/>
+				{{/if}}
+				<label class="completed completedLabel-{{_id}}" for="completedCheck-{{_id}}"></label>
+     	</div>
+     	<div class="col-md-1" id ="initials" align="left">
+        <span id="initialsBox" style="background-color: {{highlight assignee}}">{{assignFormat assignee}}</span>
       </div>
-      <div class="row">
-        <div class="col-md-1" id ="initials" align="left">
-          {{assignFormat assignee}}
-        </div>
-        <div class="col-md-9" id="editTitle">
-          {{> editableText collection="chores" field="title"}}
-        </div>
-        <div class="col-md-2">
-          <i class="fa fa-comment"></i>
-        </div>
+      <div id="listEditAssigneeDiv{{_id}}" class="listEditAssignee"  tabindex="-1">
+        <select class="selectpicker form-control" data-size="4" id="listEditAssignee{{_id}}" name="assignee">
+          {{#each users}}
+              <option value="{{this}}" selected="{{selected ../assignee this}}">{{getUserName this}}</option>
+          {{/each}}
+        </select>
       </div>
-      <div class="row">
-        <div class="col-md-8">
-          {{#if completed}}
-            <span class="text-success">{{dateFormat completedOn}}</span>
-          {{/if}}
-        </div>
-        <div class="col-md-4" align="right">
-          <button class="btn btn-md btn-success completed">
-            <i class="fa fa-check"></i>
-          </button>
-          <button class="btn btn-md btn-danger listDelete">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
+      <div class="col-md-8" id="listEditTitle">
+        <input class="form-control input-md listName-{{_id}}" id="listName" name="choreName" type="text" placeholder="Name Your Chore"  required="" value="{{title}}" maxlength="60">
       </div>
+      <div class="col-md-2" id="listDeleteDiv" align="right">
+      	<button class="btn btn-xs btn-danger listDeleteBtn">
+	        <i class="fa fa-times"></i>
+	      </button>
+	    </div>
+    </div>
 
-
+    <div class="row">
+    	<div id="listEditDateDiv{{_id}}" class="listEditDate"  tabindex="-1">
+        <div class="list-datepicker datepicker{{_id}}" id="list-datepicker"></div>
+      </div>
+    	<div class="col-md-2" id="statusText" align="left">
+    		{{#if completed}}
+	        <span class="text-success statusText" id="dateStatus">{{dateFormat completedOn}}</span>
+	      {{else}}
+	        <span class="text-danger statusText" id="dateStatus">{{pastDue startDate}}</span>
+	      {{/if}}
+    	</div>
+      <div class="col-md-10 comments" id="comments">
+      	<textarea id="listDesc" class="listDesc-{{_id}}" name="choreDesc" placeholder="Add comments here" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add comments here'" maxlength="140">{{description}}</textarea>
+      </div>
     </div>
   </li>
-    <!--<td><span id="editDesc">{{> editableText collection="chores" field="description" acceptEmpty="true" substitute="N/A"}}</span></td>-->
-      
+</template>
+
+
+
+<template name="deleteChoreModal">
+	{{#with deletedChore}}
+	<div class="modal fade" id="deletedChoreModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Warning</h4>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete the chore:<br>
+          <br>
+          <strong>{{title}}</strong>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger listDelete">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>
+
+
+
+<template name="completedCss">
+	.completedLabel-{{_id}} {
+		position: relative;
+		padding-left: 20px;
+		font-size: 14px;
+		cursor: pointer;
+		margin-bottom: 0px;
+	}
+
+	.completedLabel-{{_id}}:before, .completedLabel-{{_id}}:after {
+		font-family: FontAwesome;
+		font-size: 20px;
+		position: absolute;
+		top: -15px;
+		left: 5px;
+	}
+
+	.completedLabel-{{_id}}:before {
+		content: '\f096';
+	}
+
+	.completedLabel-{{_id}}:after {
+		content: '\f046';
+		max-width: 0;
+		overflow: hidden;
+		opacity: 0.5;
+		transition: all 0.35s;
+	}
+
+	#completedCheck-{{_id}} {
+		display: none;
+	}
+
+	#completedCheck-{{_id}}:checked + label:after {
+		max-width: 25px;
+		opacity: 1;
+	}
 </template>

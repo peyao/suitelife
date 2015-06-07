@@ -1,9 +1,22 @@
 body {
-	background: lavender;
+        background-image: url('BackgroundPaws.png');
+        background-repeat: repeat;
+        background-position: bottom;
+        background-size: contain;
+        background-attachment: fixed;
+        background-color: #f6fbfc;
 }
 
 .panel-title{
-	font-size: 32px;
+	font-size: 24px;
+	cursor:move;
+	/*color: #FFFFFF;*/
+    float: left;
+    padding-left: 15px;
+}
+
+.panel-heading > .row > .pull-right{
+    padding-right: 10px;
 }
 
 .home {
@@ -14,32 +27,32 @@ body {
 	overflow-y: scroll;
 }
 
-#postsModule > .panel {
+#postsModule{
+	width: 95%;
 	min-width: 640px;
 	min-height: 300px;	
-	width: 1200px;
-	height: 300px;
+	height: 500px;
 }
 
-#iousModule > .panel {
-	min-width: 525px;
+#iousModule{
+	width: 47%;
+	min-width: 565px;
 	min-height: 175px;
-	width: 525px;
 	height: 175px;
 }
 
-#choresModule > .panel {
-	min-width: 525px;
+#choresModule{
+	width: 47%;
+	min-width: 565px;
 	min-height: 175px;
-	width: 525px;
 	height: 175px;
 }
 
-#calModule > .panel {
+#calModule{
+	width: 47%;
 	min-width: 640px;
 	min-height: 300px;
-	width: 640px;
+	max-height: 610px;
 	height: 300px;
 }
-
 

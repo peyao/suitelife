@@ -1,18 +1,25 @@
+<template name="uhoh">
+  <h1>Oh dear! You shouldn't be here.</h1>
+  <img style="height: 200px" src="https://styleseat-media.s3.amazonaws.com/apache_files/dog_in_wig_web.jpg">
+  {{#if isPhone}}
+    <h1>SuiteLife currently only works for desktops</h1>
+  {{/if}}
+</template>
+
 <template name="splash">
+<!-- If the user is on the /splash route and is logged in,
+    the uhoh template is displayed -->
   {{#if currentUser}}
-  	<h1>Oh dear! You shouldn't be here.</h1>
-  	<img style="height: 200px" src="https://styleseat-media.s3.amazonaws.com/apache_files/dog_in_wig_web.jpg">
+    {{> uhoh}}
   {{else}}
 
-      {{#if inviteRoute }}
-          <h3>you are here on an invite</h3>
-      {{/if}}
 	{{> jumbotron}}
   {{> mission}}
   {{> features}}
   {{> signup}}
 
 	{{/if}}
+  {{> footer}}
 </template>
 
 <template name="signup">
@@ -41,7 +48,7 @@
         </div>
         <button type="submit" class="btn btn-default"
             data-loading-text="Signing up...">
-          <i class="fa fa-lg fa-fw fa-check"></i> Sign up
+          <i class="fa fa-lg fa-fw fa-check"></i> Create account
         </button>
       </form>
     </div>
@@ -52,10 +59,10 @@
   <div class="jumbotron">
     <div class="container">
       <h1>SuiteLife</h1>
-      <h2>Living together... done better</h2>
+      <h2>Live • Together • Better</h2>
       <div class="wrapper">
-        <button type="button" class="btn my-btn signupButton">Sign Up</button>
-        <button type="button" class="btn btn-primary loginButton">Login</button>
+        <button type="button" class="btn-lg my-btn signupButton">Sign up</button>
+        <button type="button" class="btn-lg btn-primary loginButton">Sign in</button>
       </div>
     </div>
   </div>
@@ -65,10 +72,15 @@
   <div class="container">
     <div class="mission">
       <h1>Welcome!</h1>
-      <p>SuiteLife is a set of software tools designed to streamline the process of living with people. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+      <p>SuiteLife's mission statement is to bring living together with people into the digital age. It provides an innovative set of tools that allow users to manage the many aspects of communal living. It was inspired by our teams experience as freshmen or transfers living in UCSD housing and the tools we wished we had at our disposal. So welcome and enjoy!</p>
+    </div>
+    <div class="video" align="center">
+      <h1>See our site overview!</h1>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/P2NJeUprx_M" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
 </template>
+
 
 <template name="features">
   <div class="features">
@@ -87,17 +99,17 @@
             <i class="fa fa-usd fa-3"></i>
           </div>
           <h1>Cost Splitting/IOU</h1>
-          <p>Tracking debt among roommates has never been easier with our IOU tool.
-          Can't remember who bought the toliet paper last? It doesn't matter if the cost
-          is split evening among everyone. Repay debts how you want.</p> 
+          <p>Tracking debt among suitemates has never been easier with our IOU tool.
+          Can't remember who bought the toilet paper last? It doesn't matter if the cost
+          is split evenly among everyone. Repay debts how you want.</p> 
         </div>
         <div class="col-md-4">
           <div class="icons">
             <i class="fa fa-comments fa-3"></i>
           </div>
           <h1>Bulletin Board</h1>
-          <p>Save the trees! Instead of posting passive agressive post-its above the sink,
-            do so on your bulletin board. Share text or photos with suite mates.</p>
+          <p>Save the trees! Instead of posting passive aggressive post-its above the sink,
+            do so on your bulletin board. Share text or photos with suitemates.</p>
         </div>
       </div>
     </div>
